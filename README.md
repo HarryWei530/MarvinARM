@@ -18,6 +18,10 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 
 Once these commands are executed, run again the "wget" command and ROS should install properly.
 
+OpenMANIPULATOR packages: To install the needed packages for OpenMANIPULATOR just follow the instructions on the link above. In the event that the final line throws an error, cd into the directory and execute "catkin make" on separate lines, and failing that restart the computer and try it again.
+
+Azure Kinect SDK: To install the SDK, follow the instructions at this link: https://docs.microsoft.com/en-us/azure/kinect-dk/sensor-sdk-download. You may encounter an error when setting up the Microsoft package repo where a configured file "main/binary-i386/Packages" will not be acquired as the microsoft repo does not support the i386 architecture. Unkown if this makes any difference.
+
 
 
 cd ~/catkin_ws/src
