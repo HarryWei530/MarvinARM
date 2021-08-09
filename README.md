@@ -94,3 +94,4 @@ roslaunch mimic mimic_gazebo.launch
 ## Sources
 1. [ROBOTIS-GIT/open_manipulator](https://github.com/ROBOTIS-GIT/open_manipulator)
 2. [microsoft/Azure_Kinect_ROS_Driver](https://github.com/microsoft/Azure_Kinect_ROS_Driver)
+3. [Azure KInect SDK (k4a) Documentation](https://github.com/microsoft/Azure-Kinect-Sensor-SDK)
