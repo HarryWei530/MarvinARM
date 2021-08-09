@@ -11,6 +11,50 @@ Azure Kinect ROS driver
 Openmanipulator X
 ```
 ## Installation
+Step by step just code:
+ROS installation
+
+```
+$ sudo apt-get update && sudo apt-get upgrade
+$ sudo apt install curl # if you haven't already installed curl
+$ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+$ wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_melodic.sh && chmod 755 ./install_ros_melodic.sh && bash ./install_ros_melodic.sh
+```
+OpenManipulatorX packages
+```
+$ sudo apt-get install ros-kinetic-ros-controllers ros-kinetic-gazebo* ros-kinetic-moveit* ros-kinetic-industrial-core
+$ cd ~/catkin_ws/src/
+$ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+$ git clone https://github.com/ROBOTIS-GIT/dynamixel-workbench.git
+$ git clone https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git
+$ git clone https://github.com/ROBOTIS-GIT/open_manipulator.git
+$ git clone https://github.com/ROBOTIS-GIT/open_manipulator_msgs.git
+$ git clone https://github.com/ROBOTIS-GIT/open_manipulator_simulations.git
+$ git clone https://github.com/ROBOTIS-GIT/robotis_manipulator.git
+$ cd ~/catkin_ws 
+$ atkin_make #If this doesn't work, restart the computer and try again
+```
+Azure Kinect SDK:
+```
+$curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+
+$sudo apt-add-repository https://packages.microsoft.com/ubuntu/18.04/prod
+
+$sudo apt-get update #If this throws an error with unsupported architecture,  open the file located at "/etc/apt/sources.list" in an editor, scroll down to where the Microsoft URL is located, and in between the "deb" and the start of the link insert "[arch=amd64]". Then rerun "sudo apt-get update" and it should work fine now.
+
+$sudo apt install k4a-tools=1.3.0
+
+$sudo apt install k4a1.3-dev
+
+$catkin_make
+
+```
+Azure Kinect ROS Driver
+
+
+
+
+This guide is only for native Linux OS, not Virtual Machines. While it may work on VMs, it is not guaranteed to do so.
 
 For ROS installation, follow the guide at this link: https://emanual.robotis.com/docs/en/platform/openmanipulator_x/ros_setup/. There are two key caveats. The first is that all instances of "kinetic" must be replaced with "melodic", as that is the proper ROS version for Ubuntu 18.04. The second is that an error may occur where a key is not found and the installation stops. If this occurs, the following commands should be executed:
 sudo apt install curl # if you haven't already installed curl
@@ -22,7 +66,9 @@ OpenMANIPULATOR packages: To install the needed packages for OpenMANIPULATOR jus
 
 Azure Kinect SDK: To install the SDK, follow the instructions at this link: https://docs.microsoft.com/en-us/azure/kinect-dk/sensor-sdk-download. You may encounter an error when setting up the Microsoft package repo where a configured file "main/binary-i386/Packages" will not be acquired as the microsoft repo does not support the i386 architecture. To fix this, open the file located at "/etc/apt/sources.list" in an editor, scroll down to where the Microsoft URL is located, and in between the "deb" and the start of the link insert "[arch=amd64]". Then rerun "sudo apt-get update" and it should work fine now.
 
-After setting up the Microsoft repo, it's time to install the Azure SDK. However, we will not be executing the base command given in the tutorial as that command installs the newest version of libk4a, which is incompatible with the ROS driver. Instead run "sudo apt install k4a-tools=1.3.0". This version will work properly with the ROS driver.
+After setting up the Microsoft repo, it's time to install the Azure SDK. However, we will not be executing the base command given in the tutorial as that command installs the newest version of libk4a, which is incompatible with the ROS driver. Instead run "sudo apt install k4a-tools=1.3.0". This version will work properly with the ROS driver. Then run "sudo apt install k4a1.3-dev" to install the developer version.
+
+Now it is time to set up the Azure Kinect ROS Driver. Go to /catkin_ws/src and clone this github repo: https://github.com/microsoft/Azure_Kinect_ROS_Driver.git. Once it is fully cloned go back up to the catkin_ws folder and run catkin_make to build the repo. You may need to run "catkin_make --force-cmake" if that doesn't work.
 
 cd ~/catkin_ws/src
 git clone https://github.com/thedavekwon/MarvinARM.git
