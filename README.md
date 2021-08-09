@@ -20,9 +20,9 @@ Once these commands are executed, run again the "wget" command and ROS should in
 
 OpenMANIPULATOR packages: To install the needed packages for OpenMANIPULATOR just follow the instructions on the link above. In the event that the final line throws an error, cd into the directory and execute "catkin make" on separate lines, and failing that restart the computer and try it again.
 
-Azure Kinect SDK: To install the SDK, follow the instructions at this link: https://docs.microsoft.com/en-us/azure/kinect-dk/sensor-sdk-download. You may encounter an error when setting up the Microsoft package repo where a configured file "main/binary-i386/Packages" will not be acquired as the microsoft repo does not support the i386 architecture. Unkown if this makes any difference.
+Azure Kinect SDK: To install the SDK, follow the instructions at this link: https://docs.microsoft.com/en-us/azure/kinect-dk/sensor-sdk-download. You may encounter an error when setting up the Microsoft package repo where a configured file "main/binary-i386/Packages" will not be acquired as the microsoft repo does not support the i386 architecture. To fix this, open the file located at "/etc/apt/sources.list" in an editor, scroll down to where the Microsoft URL is located, and in between the "deb" and the start of the link insert "[arch=amd64]". Then rerun "sudo apt-get update" and it should work fine now.
 
-
+After setting up the Microsoft repo, it's time to install the Azure SDK. However, we will not be executing the base command given in the tutorial as that command installs the newest version of libk4a, which is incompatible with the ROS driver. Instead run "sudo apt install k4a-tools=1.3.0". This version will work properly with the ROS driver.
 
 cd ~/catkin_ws/src
 git clone https://github.com/thedavekwon/MarvinARM.git
