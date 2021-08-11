@@ -4,6 +4,8 @@ by Do Hyung (Dave) Kwon and Rose Gebhardt
 
 ## Requirement
 ```
+Ubuntu 18.04.5
+Git
 ROS Melodic
 Azure Kinect SDK
 Azure Kinect Body Tracking SDK
@@ -11,9 +13,8 @@ Azure Kinect ROS driver
 Openmanipulator X
 ```
 ## Installation
-Step by step just code:
+Step by step just code (we assume you already have ubuntu 18.04 and Git installed):
 ROS installation
-
 ```
 $ sudo apt-get update && sudo apt-get upgrade
 $ sudo apt install curl # if you haven't already installed curl
@@ -23,6 +24,13 @@ $ wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/instal
 OpenManipulatorX packages
 ```
 $ sudo apt-get install ros-kinetic-ros-controllers ros-kinetic-gazebo* ros-kinetic-moveit* ros-kinetic-industrial-core
+```
+Create a catkin workspace folder under a directory of your choice, we picked the linux user home folder (you can get always get there by typing `cd ~`).
+```
+$ mkdir -p ~/catkin_ws/{src,devel,build}
+```
+From here on, most code and packages for marvin exists in this workspace folder. Enter catkin workspace and download the following packages.   
+```
 $ cd ~/catkin_ws/src/
 $ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 $ git clone https://github.com/ROBOTIS-GIT/dynamixel-workbench.git
@@ -32,7 +40,7 @@ $ git clone https://github.com/ROBOTIS-GIT/open_manipulator_msgs.git
 $ git clone https://github.com/ROBOTIS-GIT/open_manipulator_simulations.git
 $ git clone https://github.com/ROBOTIS-GIT/robotis_manipulator.git
 $ cd ~/catkin_ws 
-$ atkin_make #If this doesn't work, restart the computer and try again
+$ catkin_make #If this doesn't work, restart the computer and try again
 ```
 Azure Kinect SDK:
 ```
