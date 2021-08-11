@@ -31,16 +31,16 @@ $ mkdir -p ~/catkin_ws/{src,devel,build}
 ```
 From here on, most code and packages for marvin exists in this workspace folder. Enter catkin workspace and download the following packages.   
 ```
-$ cd ~/catkin_ws/src/
-$ git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
-$ git clone https://github.com/ROBOTIS-GIT/dynamixel-workbench.git
-$ git clone https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git
-$ git clone https://github.com/ROBOTIS-GIT/open_manipulator.git
-$ git clone https://github.com/ROBOTIS-GIT/open_manipulator_msgs.git
-$ git clone https://github.com/ROBOTIS-GIT/open_manipulator_simulations.git
-$ git clone https://github.com/ROBOTIS-GIT/robotis_manipulator.git
-$ cd ~/catkin_ws 
-$ catkin_make #If this doesn't work, restart the computer and try again
+cd ~/catkin_ws/src/
+git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+git clone https://github.com/ROBOTIS-GIT/dynamixel-workbench.git
+git clone https://github.com/ROBOTIS-GIT/dynamixel-workbench-msgs.git
+git clone https://github.com/ROBOTIS-GIT/open_manipulator.git
+git clone https://github.com/ROBOTIS-GIT/open_manipulator_msgs.git
+git clone https://github.com/ROBOTIS-GIT/open_manipulator_simulations.git
+git clone https://github.com/ROBOTIS-GIT/robotis_manipulator.git
+cd ~/catkin_ws 
+catkin_make #If this doesn't work, restart the computer and try again
 ```
 Azure Kinect SDK:
 ```
