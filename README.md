@@ -16,18 +16,18 @@ Openmanipulator X
 Step by step just code (we assume you already have ubuntu 18.04 and Git installed):
 ROS installation
 ```
-$ sudo apt-get update && sudo apt-get upgrade
-$ sudo apt install curl # if you haven't already installed curl
-$ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-$ wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_melodic.sh && chmod 755 ./install_ros_melodic.sh && bash ./install_ros_melodic.sh
+sudo apt-get update && sudo apt-get upgrade
+sudo apt install curl # if you haven't already installed curl
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_melodic.sh && chmod 755 ./install_ros_melodic.sh && bash ./install_ros_melodic.sh
 ```
 OpenManipulatorX packages
 ```
-$ sudo apt-get install ros-kinetic-ros-controllers ros-kinetic-gazebo* ros-kinetic-moveit* ros-kinetic-industrial-core
+sudo apt-get install ros-kinetic-ros-controllers ros-kinetic-gazebo* ros-kinetic-moveit* ros-kinetic-industrial-core
 ```
 Create a catkin workspace folder under a directory of your choice, we picked the linux user home folder (you can get always get there by typing `cd ~`).
 ```
-$ mkdir -p ~/catkin_ws/{src,devel,build}
+mkdir -p ~/catkin_ws/{src,devel,build}
 ```
 From here on, most code and packages for marvin exists in this workspace folder. Enter catkin workspace and download the following packages.   
 ```
@@ -44,20 +44,18 @@ catkin_make #If this doesn't work, restart the computer and try again
 ```
 Azure Kinect SDK:
 ```
-$curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+sudo apt-add-repository https://packages.microsoft.com/ubuntu/18.04/prod
 
-$sudo apt-add-repository https://packages.microsoft.com/ubuntu/18.04/prod
+sudo apt-get update #If this throws an error with unsupported architecture,  open the file located at "/etc/apt/sources.list" in an editor, scroll down to where the Microsoft URL is located, and in between the "deb" and the start of the link insert "[arch=amd64]". Then rerun "sudo apt-get update" and it should work fine now.
 
-$sudo apt-get update #If this throws an error with unsupported architecture,  open the file located at "/etc/apt/sources.list" in an editor, scroll down to where the Microsoft URL is located, and in between the "deb" and the start of the link insert "[arch=amd64]". Then rerun "sudo apt-get update" and it should work fine now.
-
-$sudo apt install k4a-tools=1.3.0
-
-$sudo apt install k4a1.3-dev
-
+sudo apt install k4a-tools=1.3.0
+sudo apt install k4a1.3-dev
 $catkin_make
-
 ```
 Azure Kinect ROS Driver
+
+
 
 
 
