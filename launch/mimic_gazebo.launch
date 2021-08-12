@@ -1,44 +1,69 @@
 <launch>
   <!-- These are the arguments you can pass this launch file, for example paused:=true -->
-  <arg name="use_robot_name" default="open_manipulator"/>
+  <arg name="pause_gazebo_on_startup" default="false"/>
+  <arg name="robot_name" default="open_manipulator"/>
+  <arg name="use_physical_robot" default="false"/>
+  <arg name="end_effector" default="gripper"/>
 
-  <arg name="paused" default="true"/>
-  <arg name="use_sim_time" default="true"/>
-  <arg name="gui" default="true"/>
-  <arg name="headless" default="false"/>
-  <arg name="debug" default="false"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find open_manipulator_gazebo)/worlds/empty.world"/>
-    <arg name="debug" value="$(arg debug)" />
-    <arg name="gui" value="$(arg gui)" />
-    <arg name="paused" value="$(arg paused)"/>
-    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
-    <arg name="headless" value="$(arg headless)"/>
+    <arg name="paused" value="$(arg pause_gazebo_on_startup)"/>
   </include>
 
-  <group ns="left_$(arg use_robot_name)">
-    <param name="robot_description"
-     command="$(find xacro)/xacro --inorder '$(find mimic)/urdf/left_open_manipulator.urdf.xacro'"/>
+  <group ns='left_open_manipulator'>
+    <!-- Spawn Left Arm -->
+      <param name="robot_description"
+        command="$(find xacro)/xacro --inorder '$(find mimic)/urdf/left_open_manipulator.urdf.xacro'"/>
 
-    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-       args="-urdf -model left_open_manipulator -param robot_description"/>
+      <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model left_open_manipulator -param robot_description"/>
 
-    <include file="$(find mimic)/launch/mimic_controller.launch">
-      <arg name="use_robot_name" value="left_$(arg use_robot_name)"/>
-    </include>
+    <!-- launch joint_state_controller -->
+      <rosparam file="$(find open_manipulator_gazebo)/config/joint_state_controller.yaml" command="load"/>
+      <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" 
+        args="spawn joint_state_controller" respawn="false" output="screen"/>
+
+
+      <include file="$(find open_manipulator_gazebo)/launch/open_manipulator_controller.launch"/>
+      <!-- <include file="$(find mimic)/launch/mimic_controller.launch"/> -->
+
+      <node name="mimic" pkg="mimic" type="mimic" output="screen">
+        <remap from="kinematics_pose" to="$(arg end_effector)/kinematics_pose"/>
+        <param name="arm_type" type="int" value="1" />
+      </node> 
+
+      <node name="$(arg robot_name)" pkg="open_manipulator_controller" type="open_manipulator_controller" output="screen">
+        <param name="using_platform"       value="$(arg use_physical_robot)"/>
+      </node>
   </group>
 
-  <group ns="right_$(arg use_robot_name)">
+  <group ns='right_open_manipulator'>
+  <!-- Spawn Left Arm -->
     <param name="robot_description"
-     command="$(find xacro)/xacro --inorder '$(find mimic)/urdf/right_open_manipulator.urdf.xacro'"/>
+      command="$(find xacro)/xacro --inorder '$(find mimic)/urdf/right_open_manipulator.urdf.xacro'"/>
 
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-       args="-urdf -model right_open_manipulator -param robot_description"/>
+      args="-urdf -model right_open_manipulator -param robot_description"/>
 
-    <include file="$(find mimic)/launch/mimic_controller.launch">
-      <arg name="use_robot_name" value="right_$(arg use_robot_name)"/>
-    </include>
-  </group>
+  <!-- launch joint_state_controller -->
+    <rosparam file="$(find open_manipulator_gazebo)/config/joint_state_controller.yaml" command="load"/>
+    <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" 
+      args="spawn joint_state_controller" respawn="false" output="screen"/>
+
+
+    <include file="$(find open_manipulator_gazebo)/launch/open_manipulator_controller.launch"/>
+    <!-- <include file="$(find mimic)/launch/mimic_controller.launch"/> -->
+
+    <node name="mimic" pkg="mimic" type="mimic" output="screen">
+      <remap from="kinematics_pose" to="$(arg end_effector)/kinematics_pose"/>
+      <param name="arm_type" type="int" value="2" />
+    </node> 
+
+    <node name="$(arg robot_name)" pkg="open_manipulator_controller" type="open_manipulator_controller" output="screen">
+      <param name="using_platform"       value="$(arg use_physical_robot)"/>
+    </node>
+</group>
+
 </launch>

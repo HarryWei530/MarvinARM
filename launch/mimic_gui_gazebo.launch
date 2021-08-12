@@ -1,0 +1,48 @@
+<launch>
+  <!-- These are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="gui" default="true"/>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find open_manipulator_gazebo)/worlds/empty.world"/>
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+  </include>
+
+  <group ns='left_open_manipulator'>
+    <!-- Spawn OMX Model -->
+      <param name="robot_description"
+        command="$(find xacro)/xacro --inorder '$(find mimic)/urdf/left_open_manipulator.urdf.xacro'"/>
+      <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model left_open_manipulator -param robot_description"/>
+
+    <!-- joint_state_controller -->
+      <rosparam file="$(find open_manipulator_gazebo)/config/joint_state_controller.yaml" command="load"/>
+      <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" 
+        args="spawn joint_state_controller" respawn="false" output="screen"/>
+
+    <!-- ros_control robotis manipulator launch file -->
+      <include file="$(find open_manipulator_gazebo)/launch/open_manipulator_controller.launch"/>
+
+    <!-- Launch OMX GUI -->
+      <arg name="robot_name"   default="open_manipulator"/>
+      <arg name="end_effector" default="gripper"/>
+
+      <node name="control_gui" pkg="open_manipulator_control_gui" type="open_manipulator_control_gui" output="screen">
+        <remap from="kinematics_pose" to="$(arg end_effector)/kinematics_pose"/>
+      </node>
+
+    <!-- Launch OMX Controller -->
+      <arg name="use_robot_name"         default="open_manipulator"/>
+      <arg name="control_period"         default="0.010"/>
+      <arg name="use_platform"           default="false"/>
+      <node name="$(arg use_robot_name)" pkg="open_manipulator_controller" type="open_manipulator_controller" output="screen">
+          <param name="using_platform"       value="$(arg use_platform)"/>
+          <param name="control_period"       value="$(arg control_period)"/>
+      </node>
+  </group>
+
+</launch>
