@@ -1,6 +1,6 @@
 # MarvinARM
 ![Marvin](images/marvin.jpeg)
-by Do Hyung (Dave) Kwon and Rose Gebhardt
+by Do Hyung (Dave) Kwon, Rose Gebhardt, Haoran (Harry) Wei, David Stekol, and Sohaib Bhatti
 
 ## Requirement
 ```
