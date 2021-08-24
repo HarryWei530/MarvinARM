@@ -3,6 +3,7 @@
 by Do Hyung (Dave) Kwon, Rose Gebhardt, Haoran (Harry) Wei, David Stekol, and Sohaib Bhatti
 
 ## Requirement
+Make Sure you have these packages installed on Ubuntu 18.04. Otherwise follow the Installation Guide below. 
 ```
 Ubuntu 18.04.5
 Git
@@ -13,7 +14,10 @@ Azure Kinect ROS driver
 Openmanipulator X
 ```
 ## Installation
-Step by step just code (we assume you already have ubuntu 18.04 and Git installed):
+Installing Ubuntu 18.04: you can follow this link: https://phoenixnap.com/kb/how-to-install-ubuntu-18-04. 
+Installing Git on Ubuntu (Linux): Run `sudo apt install git-all` in terminal. 
+
+Step by step (we assume you already have ubuntu 18.04 and Git installed).
 ROS installation
 ```
 sudo apt-get update && sudo apt-get upgrade
