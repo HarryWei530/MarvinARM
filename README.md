@@ -95,10 +95,13 @@ sudo apt-get install python3-rosdep
 sudo apt-get install python-rosdep
 ```
 ## Usage
+To run the physical robot. In two seperate terminal windows, type the following:
 ```
+roslaunch azure_kinect_ros_driver driver.launch 
 roslaunch mimic mimic.launch
 
 # for launching gazebo
+roslaunch azure_kinect_ros_driver driver.launch 
 roslaunch mimic mimic_gazebo.launch
 ```
 ## Sources
