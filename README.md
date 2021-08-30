@@ -99,8 +99,10 @@ To run the physical robot. In two seperate terminal windows, type the following:
 ```
 roslaunch azure_kinect_ros_driver driver.launch 
 roslaunch mimic mimic.launch
+```
 
-# for launching gazebo
+For launching the gazebo simulation
+```
 roslaunch azure_kinect_ros_driver driver.launch 
 roslaunch mimic mimic_gazebo.launch
 ```
